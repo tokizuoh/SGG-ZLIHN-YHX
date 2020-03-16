@@ -1,18 +1,16 @@
 <template>
   <div>
-    <h1>Bitcoin Price Index</h1>
-    <!--     
-    <div
-      v-for="currency in info"
-      :key="currency.code"
-      class="currency">
-      {{ currency.description }}
-      hoge
-      <span class="lighten">
-        <span v-html="currency.symbol"/>{{ currency.rate_float | currencydecimal }}
-      </span>
-    </div>-->
-    {{ info }}
+    <h1>都道府県一覧</h1>  
+    <div v-if="!errored">
+      <div
+        v-for="pref in prefectures"
+        :key="pref.prefCode">
+        {{ pref }}
+      </div>
+    </div>
+    <div v-else>
+      {{ info.data.statusCode }} Error
+    </div>
   </div>
 </template>
 
@@ -25,6 +23,7 @@ export default {
       info: null,
       loading: true,
       errored: false,
+      prefectures: null
     }
   },
   mounted () {
@@ -34,9 +33,10 @@ export default {
         // 正常に値をgetできる場合はレスポンスに'statusCode'キーが存在しない
         if (response['data']['statusCode'] != null){
           console.log(response['data']['statusCode'], 'error')
-          return
+          this.errored = true
         }
         this.info = response
+        this.prefectures = this.info.data.result
       })
       .catch(error => {
         console.log(error)
