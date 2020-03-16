@@ -15,3 +15,5 @@ yarn-error.log*
 *.sln
 
 .env
+
+accessToken.json
