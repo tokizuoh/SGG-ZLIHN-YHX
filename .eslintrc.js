@@ -1,29 +1,27 @@
-// https://eslint.org/docs/user-guide/configuring
-
 module.exports = {
-  root: true,
-  parserOptions: {
-    parser: 'babel-eslint'
-  },
-  env: {
-    browser: true,
-  },
-  extends: [
-    // https://github.com/vuejs/eslint-plugin-vue#priority-a-essential-error-prevention
-    // consider switching to `plugin:vue/strongly-recommended` or `plugin:vue/recommended` for stricter rules.
-    'plugin:vue/essential', 
-    // https://github.com/standard/standard/blob/master/docs/RULES-en.md
-    'standard'
-  ],
-  // required to lint *.vue files
   plugins: [
     'vue'
   ],
-  // add your custom rules here
+  extends: [
+    'eslint:recommended',
+    'plugin:vue/recommended'
+  ],
   rules: {
-    // allow async-await
-    'generator-star-spacing': 'off',
-    // allow debugger during development
-    'no-debugger': process.env.NODE_ENV === 'production' ? 'error' : 'off'
+    'vue/html-closing-bracket-newline': [2, {'multiline': 'never'}],
+    'no-extra-parens': 1,
+    'no-multi-spaces': 2,
+    'no-multiple-empty-lines': [2, {'max': 1}],
+    'func-call-spacing': [2, 'never'],
+    'no-unneeded-ternary': 2,
+    'semi': [2, 'never'],
+    'quotes': [2, 'single'],
+    'no-var': 2,
+    'indent': [2, 2],
+    'space-in-parens': [2, 'never'],
+    'no-console': 0,
+    'comma-spacing': 2,
+    'computed-property-spacing': 2,
+    'key-spacing': 2,
+    'keyword-spacing': 2,
   }
 }
