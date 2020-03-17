@@ -5,8 +5,14 @@
       <div
         v-for="pref in prefectures"
         :key="pref.prefCode">
-        {{ pref }}
+        <input 
+          :id="pref.prefName"
+          v-model="checkedNames" 
+          :value="pref.prefName" 
+          type="checkbox">
+        <label :for="pref.Name">{{ pref.prefName }}</label>
       </div>
+      {{ checkedNames }}
     </div>
     <div v-else>
       {{ info.data.statusCode }} Error
@@ -16,6 +22,7 @@
 
 <script>
 import accessToken from './accessToken.json'
+
 export default {
   name: 'App',
   data () {
@@ -23,7 +30,8 @@ export default {
       info: null,
       loading: true,
       errored: false,
-      prefectures: null
+      prefectures: null,
+      checkedNames: []
     }
   },
   mounted () {
