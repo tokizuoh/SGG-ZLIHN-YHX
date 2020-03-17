@@ -8,11 +8,14 @@
         <input 
           :id="pref.prefName"
           v-model="checkedNames" 
-          :value="pref.prefName" 
+          :value="pref.prefCode" 
           type="checkbox">
         <label :for="pref.Name">{{ pref.prefName }}</label>
       </div>
       {{ checkedNames }}
+      <div class="issue5">
+        <button @click="hoge">send</button>
+      </div>
     </div>
     <div v-else>
       {{ info.data.statusCode }} Error
@@ -31,7 +34,9 @@ export default {
       loading: true,
       errored: false,
       prefectures: null,
-      checkedNames: []
+      checkedNames: [],
+      counter: 0, // trest
+      popRes: new Array()
     }
   },
   mounted () {
@@ -51,6 +56,36 @@ export default {
         this.errored = true
       })
       .finally(() => this.loading = false)
+  },
+  methods: {
+    funcPop: function (){
+      this.axios
+        .get('https://opendata.resas-portal.go.jp/api/v1/population/composition/perYear', {
+          headers: { 
+            'X-API-KEY': accessToken['RESAS_API_KEY']
+          },
+          params: {
+            'prefCode': 1,
+            'cityCode': '-'
+          }
+        })
+        .then(response => {
+        // 正常に値をgetできる場合はレスポンスに'statusCode'キーが存在しない
+          console.log(response)
+        })
+        .catch(error => {
+          console.log(error)
+          this.errored = true
+        })
+        .finally(() => this.loading = false)
+    },
+    hoge: function() {
+      for (let i = 0; i < this.checkedNames.length; i++) {
+        let r1 = this.funcPop(this.checkedNames[i])
+        console.log('prefCode: ', this.checkedNames[i])
+        console.log(r1)
+      }
+    }
   }
 }
 </script>
