@@ -7,12 +7,14 @@
         :key="pref.prefCode">
         <input 
           :id="pref.prefName"
-          v-model="checkedNames" 
-          :value="pref.prefName" 
+          v-model="checkedPrefCodes" 
+          :value="pref.prefCode" 
           type="checkbox">
         <label :for="pref.Name">{{ pref.prefName }}</label>
       </div>
-      {{ checkedNames }}
+      <div>
+        <button @click="getPopulations">send</button>
+      </div>
     </div>
     <div v-else>
       {{ info.data.statusCode }} Error
@@ -31,12 +33,17 @@ export default {
       loading: true,
       errored: false,
       prefectures: null,
-      checkedNames: []
+      checkedPrefCodes: [],
+      populations: new Array()
     }
   },
   mounted () {
     this.axios
-      .get('https://opendata.resas-portal.go.jp/api/v1/prefectures', { headers: { 'X-API-KEY': accessToken['RESAS_API_KEY']}})
+      .get('https://opendata.resas-portal.go.jp/api/v1/prefectures', {
+        headers: {
+          'X-API-KEY': accessToken['RESAS_API_KEY']
+        }
+      })
       .then(response => {
         // 正常に値をgetできる場合はレスポンスに'statusCode'キーが存在しない
         if (response['data']['statusCode'] != null){
@@ -51,6 +58,33 @@ export default {
         this.errored = true
       })
       .finally(() => this.loading = false)
+  },
+  methods: {
+    getPopulation: function (prefCode){
+      this.axios
+        .get('https://opendata.resas-portal.go.jp/api/v1/population/composition/perYear', {
+          headers: { 
+            'X-API-KEY': accessToken['RESAS_API_KEY']
+          },
+          params: {
+            'prefCode': prefCode,
+            'cityCode': '-'
+          }
+        })
+        .then(response => {
+          this.populations[prefCode] = response.data.result.data['0'].data
+        })
+        .catch(error => {
+          console.log(error)
+          this.errored = true
+        })
+        .finally(() => this.loading = false)
+    },
+    getPopulations: function() {
+      for (let i = 0; i < this.checkedPrefCodes.length; i++) {
+        this.getPopulation(this.checkedPrefCodes[i])
+      }
+    }
   }
 }
 </script>
