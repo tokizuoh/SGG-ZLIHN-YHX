@@ -7,14 +7,13 @@
         :key="pref.prefCode">
         <input 
           :id="pref.prefName"
-          v-model="checkedNames" 
+          v-model="checkedPrefCodes" 
           :value="pref.prefCode" 
           type="checkbox">
         <label :for="pref.Name">{{ pref.prefName }}</label>
       </div>
-      {{ checkedNames }}
-      <div class="issue5">
-        <button @click="hoge">send</button>
+      <div>
+        <button @click="getPopulations">send</button>
       </div>
     </div>
     <div v-else>
@@ -34,14 +33,17 @@ export default {
       loading: true,
       errored: false,
       prefectures: null,
-      checkedNames: [],
-      counter: 0, // trest
-      popRes: new Array()
+      checkedPrefCodes: [],
+      populations: new Array()
     }
   },
   mounted () {
     this.axios
-      .get('https://opendata.resas-portal.go.jp/api/v1/prefectures', { headers: { 'X-API-KEY': accessToken['RESAS_API_KEY']}})
+      .get('https://opendata.resas-portal.go.jp/api/v1/prefectures', {
+        headers: {
+          'X-API-KEY': accessToken['RESAS_API_KEY']
+        }
+      })
       .then(response => {
         // 正常に値をgetできる場合はレスポンスに'statusCode'キーが存在しない
         if (response['data']['statusCode'] != null){
@@ -58,20 +60,19 @@ export default {
       .finally(() => this.loading = false)
   },
   methods: {
-    funcPop: function (){
+    getPopulation: function (prefCode){
       this.axios
         .get('https://opendata.resas-portal.go.jp/api/v1/population/composition/perYear', {
           headers: { 
             'X-API-KEY': accessToken['RESAS_API_KEY']
           },
           params: {
-            'prefCode': 1,
+            'prefCode': prefCode,
             'cityCode': '-'
           }
         })
         .then(response => {
-        // 正常に値をgetできる場合はレスポンスに'statusCode'キーが存在しない
-          console.log(response)
+          this.populations[prefCode] = response.data.result.data['0'].data
         })
         .catch(error => {
           console.log(error)
@@ -79,11 +80,9 @@ export default {
         })
         .finally(() => this.loading = false)
     },
-    hoge: function() {
-      for (let i = 0; i < this.checkedNames.length; i++) {
-        let r1 = this.funcPop(this.checkedNames[i])
-        console.log('prefCode: ', this.checkedNames[i])
-        console.log(r1)
+    getPopulations: function() {
+      for (let i = 0; i < this.checkedPrefCodes.length; i++) {
+        this.getPopulation(this.checkedPrefCodes[i])
       }
     }
   }
