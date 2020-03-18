@@ -18,6 +18,10 @@ export default {
     graphdata: {
       default: null,
       type: Array
+    },
+    dictprefectures: {
+      default: null,
+      type: Array
     }
   },
   data () {
@@ -54,7 +58,7 @@ export default {
       }
     },
     showData() {
-      console.log('showData: ', this.newData)
+      console.log('this.dictprefectures: ', this.dictprefectures)
     },
     makeGraph() {
       this.setLineData(this.defaultLineOptions())
@@ -87,7 +91,7 @@ export default {
           radius: 6,
           symbol: 'circle',
         },
-        name: type,
+        name: this.dictprefectures[type],
         showInLegend: selected,
         zIndex: selected ? 1 : 0,
       }

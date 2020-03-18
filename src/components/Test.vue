@@ -18,7 +18,8 @@
       </div>
       <div>
         <graph 
-          :graphdata="populations"/>
+          :graphdata="populations"
+          :dictprefectures="dictPrefectures"/>
       </div>
     </div>
     <div v-else>
@@ -43,7 +44,8 @@ export default {
       errored: false,
       prefectures: null,
       checkedPrefCodes: [],
-      populations: [] 
+      populations: [],
+      dictPrefectures: []
     }
   },
   mounted () {
@@ -58,9 +60,13 @@ export default {
         if (response['data']['statusCode'] != null){
           console.log(response['data']['statusCode'], 'error')
           this.errored = true
+          return
         }
         this.info = response
         this.prefectures = this.info.data.result
+        for (let key in this.prefectures) {
+          this.dictPrefectures[this.prefectures[key].prefCode] = this.prefectures[key].prefName
+        }
       })
       .catch(error => {
         console.log(error)
@@ -70,7 +76,7 @@ export default {
   },
   methods: {
     showData: function () {
-      console.log(this.populations)
+      console.log(this.dictPrefectures)
     },
     getPopulation: function (prefCode){
       this.axios
@@ -84,7 +90,6 @@ export default {
           }
         })
         .then(response => {
-          // console.log(prefCode, response)
           this.populations[prefCode] = response.data.result.data['0'].data
         })
         .catch(error => {
@@ -95,7 +100,6 @@ export default {
     },
     getPopulations: function() {
       for (let i = 0; i < this.checkedPrefCodes.length; i++) {
-        // console.log(i, 'aaaaaaaaaaaaaaaaaaaaaaa')
         this.getPopulation(this.checkedPrefCodes[i])
       }
     },
