@@ -84,6 +84,7 @@ export default {
           }
         })
         .then(response => {
+          // console.log(prefCode, response)
           this.populations[prefCode] = response.data.result.data['0'].data
         })
         .catch(error => {
@@ -94,9 +95,10 @@ export default {
     },
     getPopulations: function() {
       for (let i = 0; i < this.checkedPrefCodes.length; i++) {
+        // console.log(i, 'aaaaaaaaaaaaaaaaaaaaaaa')
         this.getPopulation(this.checkedPrefCodes[i])
       }
-    }
+    },
   }
 }
 </script>
