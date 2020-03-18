@@ -14,6 +14,11 @@
       </div>
       <div>
         <button @click="getPopulations">send</button>
+        <button @click="showData">show</button>
+      </div>
+      <div>
+        <graph 
+          :graphdata="populations"/>
       </div>
     </div>
     <div v-else>
@@ -24,9 +29,13 @@
 
 <script>
 import accessToken from './accessToken.json'
+import Graph from './Graph'
 
 export default {
   name: 'App',
+  components: {
+    Graph: Graph
+  },
   data () {
     return {
       info: null,
@@ -34,7 +43,7 @@ export default {
       errored: false,
       prefectures: null,
       checkedPrefCodes: [],
-      populations: new Array()
+      populations: [] 
     }
   },
   mounted () {
@@ -60,6 +69,9 @@ export default {
       .finally(() => this.loading = false)
   },
   methods: {
+    showData: function () {
+      console.log(this.populations)
+    },
     getPopulation: function (prefCode){
       this.axios
         .get('https://opendata.resas-portal.go.jp/api/v1/population/composition/perYear', {
