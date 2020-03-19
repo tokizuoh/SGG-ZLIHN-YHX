@@ -67,7 +67,7 @@ For a detailed explanation on how things work, check out the [guide](http://vuej
     - 理想：axios利用箇所はメソッドで切り出して、メソッドの引数にパラメータを指定する  
 - [ ] チェックボックスのコンポーネント化がされていない  
 - [ ] チェックボックスにて東京都と東京都以外の都道府県を選択した場合、東京都以外のグラフが密集してしまう  
-- [ ] データの加工が終わる前に「Make」ボタンを謳歌したら何も起こらない（処理が終わるのを忖度しなければならない）  
+- [ ] データの加工が終わる前に「Make」ボタンを押下したら何も起こらない（処理が終わるのを忖度しなければならない）  
   
 ## 使用API  
 - [RESAS-API - 都道府県一覧](https://opendata.resas-portal.go.jp/docs/api/v1/prefectures.html)  
