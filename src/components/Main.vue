@@ -13,7 +13,12 @@
         <label :for="pref.Name">{{ pref.prefName }}</label>
       </div>
       <div>
-        <button @click="getPopulations">send</button>
+        <button @click="getPopulations">Send</button>
+      </div>
+      <div>
+        <graph 
+          :graphdata="populations"
+          :dictprefectures="dictPrefectures"/>
       </div>
     </div>
     <div v-else>
@@ -23,10 +28,14 @@
 </template>
 
 <script>
-import accessToken from './accessToken.json'
+import accessToken from './../assets/accessToken.json'
+import Graph from './Graph'
 
 export default {
   name: 'App',
+  components: {
+    Graph: Graph
+  },
   data () {
     return {
       info: null,
@@ -34,7 +43,8 @@ export default {
       errored: false,
       prefectures: null,
       checkedPrefCodes: [],
-      populations: new Array()
+      populations: [], // キー: 都道府県コード, 値: {year(年度), value(人口数)}の配列
+      dictPrefectures: [] // キー: 都道府県コード, 値: 都道府県名
     }
   },
   mounted () {
@@ -49,9 +59,13 @@ export default {
         if (response['data']['statusCode'] != null){
           console.log(response['data']['statusCode'], 'error')
           this.errored = true
+          return
         }
         this.info = response
         this.prefectures = this.info.data.result
+        for (let key in this.prefectures) {
+          this.dictPrefectures[this.prefectures[key].prefCode] = this.prefectures[key].prefName
+        }
       })
       .catch(error => {
         console.log(error)
@@ -84,7 +98,7 @@ export default {
       for (let i = 0; i < this.checkedPrefCodes.length; i++) {
         this.getPopulation(this.checkedPrefCodes[i])
       }
-    }
+    },
   }
 }
 </script>
