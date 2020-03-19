@@ -1,7 +1,17 @@
 # sgg-zlihn-yhx
 
 > A Vue.js project
-
+  
+## Access Token Setup  
+  
+- src/assets/accessToken.json  
+  
+```json
+{
+    "RESAS_API_KEY": ""
+}
+```
+  
 ## Build Setup
 
 ``` bash
@@ -45,7 +55,7 @@ For a detailed explanation on how things work, check out the [guide](http://vuej
 - [ ] グラフ描画コンポーネントで描画用のデータの処理をしている  
     - 処理済みのデータを渡して、グラフ描画コンポーネント自体は受け取った値を描画するのみという形が理想だと考えます。  
 - [ ] APIのアクセストークンの管理方法  
-    - 現在：src/component/accessToken.json  
+    - 現在：src/assets/accessToken.json  
     - 理想：環境変数  
 - [ ] axiosの共通化  
     - 現在：都道府県一覧の取得・都道府県別の人口構成の取得の二箇所についてそれぞれ独立した記述  
@@ -55,4 +65,5 @@ For a detailed explanation on how things work, check out the [guide](http://vuej
   
 ## 参考にしたサイト  
 - [条件付きレンダリング — Vue.js](https://jp.vuejs.org/v2/guide/conditional.html)  
+- [highchartsで線グラフの切り替え的なやつ [Nuxt.js] - Qiita](https://qiita.com/sendaiharu1/items/270035192bed03b243c8)  
   
