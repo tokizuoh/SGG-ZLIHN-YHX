@@ -69,6 +69,10 @@ For a detailed explanation on how things work, check out the [guide](http://vuej
 - [ ] チェックボックスにて東京都と東京都以外の都道府県を選択した場合、東京都以外のグラフが密集してしまう  
 - [ ] データの加工が終わる前に「Make」ボタンを謳歌したら何も起こらない（処理が終わるのを忖度しなければならない）  
   
+## 使用API  
+- [RESAS-API - 都道府県一覧](https://opendata.resas-portal.go.jp/docs/api/v1/prefectures.html)  
+- [RESAS-API - 人口構成](https://opendata.resas-portal.go.jp/docs/api/v1/population/composition/perYear.html)  
+  
 ## 参考にしたサイト  
 - [条件付きレンダリング — Vue.js](https://jp.vuejs.org/v2/guide/conditional.html)  
 - [highchartsで線グラフの切り替え的なやつ [Nuxt.js] - Qiita](https://qiita.com/sendaiharu1/items/270035192bed03b243c8)  
