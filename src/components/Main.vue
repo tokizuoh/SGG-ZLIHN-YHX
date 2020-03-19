@@ -13,8 +13,7 @@
         <label :for="pref.Name">{{ pref.prefName }}</label>
       </div>
       <div>
-        <button @click="getPopulations">send</button>
-        <button @click="showData">show</button>
+        <button @click="getPopulations">Send</button>
       </div>
       <div>
         <graph 
@@ -44,8 +43,8 @@ export default {
       errored: false,
       prefectures: null,
       checkedPrefCodes: [],
-      populations: [],
-      dictPrefectures: []
+      populations: [], // キー: 都道府県コード, 値: {year(年度), value(人口数)}の配列
+      dictPrefectures: [] // キー: 都道府県コード, 値: 都道府県名
     }
   },
   mounted () {
@@ -75,9 +74,6 @@ export default {
       .finally(() => this.loading = false)
   },
   methods: {
-    showData: function () {
-      console.log(this.dictPrefectures)
-    },
     getPopulation: function (prefCode){
       this.axios
         .get('https://opendata.resas-portal.go.jp/api/v1/population/composition/perYear', {
