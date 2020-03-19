@@ -51,6 +51,7 @@ For a detailed explanation on how things work, check out the [guide](http://vuej
     - 現在：都道府県一覧の取得・都道府県別の人口構成の取得の二箇所についてそれぞれ独立した記述  
     - 理想：axios利用箇所はメソッドで切り出して、メソッドの引数にパラメータを指定する  
 - [ ] チェックボックスのコンポーネント化がされていない  
+- [ ] チェックボックスにて東京都と東京都以外の都道府県を選択した場合、東京都以外のグラフが密集してしまう  
   
 ## 参考にしたサイト  
 - [条件付きレンダリング — Vue.js](https://jp.vuejs.org/v2/guide/conditional.html)  
