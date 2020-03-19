@@ -1,9 +1,7 @@
 <template>
   <div>
     <highcharts :options="lineData" />
-    <button @click="setData">children</button>
     <button @click="makeGraph">Make</button>
-    <button @click="showData">show</button>
   </div>
 </template>
 
@@ -43,11 +41,6 @@ export default {
       }
     }
   },
-  // watch: {
-  //   graphdata: function (newValue, oldValue) {
-  //     console.log(oldValue, '->', newValue)
-  //   }
-  // },
   mounted() {
     this.setLineData(this.defaultLineOptions())
   },
@@ -57,15 +50,10 @@ export default {
         type: '1',
       }
     },
-    showData() {
-      console.log('this.dictprefectures: ', this.dictprefectures)
-    },
     makeGraph() {
-      this.setLineData(this.defaultLineOptions())
-    },
-    setData() {
       this.fixData()
       this.lineData.series = this.newData
+      this.setLineData(this.defaultLineOptions())
     },
     fixData() {
       for (let key in this.graphdata) {
@@ -77,17 +65,13 @@ export default {
         console.log(key, arr)
       }
     },
-    // edit
     dataOptions(type, options) {
       const selected = type === options.type
-      // const color = selected ? '#0066FF' : '#CDCDCD'
       return {
-        // color,
         data: this.newData[type],
         lineWidth: selected ? 3 : 1,
         marker: {
           enabled: true,
-          // fillColor: color,
           radius: 6,
           symbol: 'circle',
         },
@@ -111,7 +95,7 @@ export default {
           style: {
             fontSize: '16px',
           },
-          text: 'Title',
+          text: '都道府県別 総人口グラフ',
           x: 0,
         },
         legend: {
@@ -124,11 +108,6 @@ export default {
           verticalAlign: 'top',
           x: 72,
           y: -8,
-          useHTML: true,
-          enabled: true,
-          navigation: {
-            enabled: false,
-          },
         },
         xAxis: {
           title: {
@@ -138,17 +117,13 @@ export default {
         yAxis: {
           title: {
             text: '人口数'
-          },
-          min: 0,
-          max: 10000000,
+          }
         },
         series: [],
       }
       for (let key in this.newData) {
         this.lineData.series.push(this.dataOptions(key, lineOptions))
-        
       }
-
     }
   }
 }
