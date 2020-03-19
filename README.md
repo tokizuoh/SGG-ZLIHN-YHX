@@ -36,6 +36,11 @@ npm test
 
 For a detailed explanation on how things work, check out the [guide](http://vuejs-templates.github.io/webpack/) and [docs for vue-loader](http://vuejs.github.io/vue-loader).
   
+## Usage  
+1. Check Prefectures  
+2. 「Send」Push  
+3. 「Make」Push  
+  
 ## 所感  
 完全に時間の見積もりを見誤りました。  
 今の自分の技量ではかなり時間がかかってしまい、完成には至りませんでした。  
@@ -62,6 +67,7 @@ For a detailed explanation on how things work, check out the [guide](http://vuej
     - 理想：axios利用箇所はメソッドで切り出して、メソッドの引数にパラメータを指定する  
 - [ ] チェックボックスのコンポーネント化がされていない  
 - [ ] チェックボックスにて東京都と東京都以外の都道府県を選択した場合、東京都以外のグラフが密集してしまう  
+- [ ] データの加工が終わる前に「Make」ボタンを謳歌したら何も起こらない（処理が終わるのを忖度しなければならない）  
   
 ## 参考にしたサイト  
 - [条件付きレンダリング — Vue.js](https://jp.vuejs.org/v2/guide/conditional.html)  
