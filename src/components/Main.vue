@@ -29,7 +29,7 @@
 </template>
 
 <script>
-import accessToken from './accessToken.json'
+import accessToken from './../assets/accessToken.json'
 import Graph from './Graph'
 
 export default {
